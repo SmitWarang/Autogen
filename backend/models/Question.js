@@ -20,7 +20,7 @@ const questionSchema = new mongoose.Schema(
     // Revised Bloom's Taxonomy
     rbt: {
       type: String,
-      enum: ["R", "U", "Ap", "An", "E", "C"], // Remember, Understand, Apply, Analyze, Evaluate, Create
+      enum: ["R", "U", "AP", "AN", "E", "C"], // Remember, Understand, Apply, Analyze, Evaluate, Create
       required: true,
     },
 
@@ -66,22 +66,22 @@ const questionSchema = new mongoose.Schema(
 questionSchema.pre("save", function (next) {
   if (this.rbt) {
     switch (this.rbt.toLowerCase()) {
-      case "r": // Remember
+      case "R": // Remember
         this.difficulty = "easy";
         break;
-      case "u": // Understand
+      case "U": // Understand
         this.difficulty = "easy";
         break;
-      case "ap": // Apply
+      case "AP": // Apply
         this.difficulty = "medium";
         break;
-      case "an": // Analyze
+      case "AN": // Analyze
         this.difficulty = "medium";
         break;
-      case "e": // Evaluate
+      case "E": // Evaluate
         this.difficulty = "hard";
         break;
-      case "c": // Create
+      case "C": // Create
         this.difficulty = "hard";
         break;
       default:

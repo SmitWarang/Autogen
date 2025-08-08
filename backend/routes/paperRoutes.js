@@ -11,9 +11,12 @@ const {
   exportSessionPapers,
   exportPaperData,
   getPaperAnalysis,
+  getRecentPapers,
 } = require("../controllers/paperController");
 
 const router = express.Router();
+
+router.get("/recent", getRecentPapers);
 
 // POST /api/papers/generate/:blueprintId - Generate papers from blueprint
 router.post("/generate/:blueprintId", generatePapers);

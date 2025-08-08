@@ -37,43 +37,99 @@ const getQuestionStats = async (req, res) => {
     const { subject } = req.query;
     const filter = subject ? { subject } : {};
 
+    const totalQuestions = await Question.countDocuments(filter);
+
+    if (totalQuestions === 0) {
+      return res.status(200).json({
+        totalQuestions: 0,
+        byCO: {},
+        byRBT: {},
+        byType: {},
+        totalMarks: 0,
+      });
+    }
+
     const stats = await Question.aggregate([
       { $match: filter },
       {
         $group: {
-          _id: {
-            co: "$co",
-            rbt: "$rbt",
-            type: "$type",
-          },
-          count: { $sum: 1 },
+          _id: null,
+          totalQuestions: { $sum: 1 },
           totalMarks: { $sum: "$marks" },
           avgMarks: { $avg: "$marks" },
-        },
-      },
-      {
-        $group: {
-          _id: "$_id.co",
-          rbtBreakdown: {
+
+          // CO breakdown
+          coStats: {
             $push: {
-              rbt: "$_id.rbt",
-              type: "$_id.type",
-              count: "$count",
-              totalMarks: "$totalMarks",
-              avgMarks: "$avgMarks",
+              co: "$co",
+              marks: "$marks",
             },
           },
-          coTotalQuestions: { $sum: "$count" },
-          coTotalMarks: { $sum: "$totalMarks" },
+
+          // RBT breakdown
+          rbtStats: {
+            $push: {
+              rbt: "$rbt",
+              marks: "$marks",
+            },
+          },
+
+          // Type breakdown
+          typeStats: {
+            $push: {
+              type: "$type",
+              marks: "$marks",
+            },
+          },
         },
       },
-      { $sort: { _id: 1 } },
     ]);
 
-    res.status(200).json({ stats });
+    if (stats.length === 0) {
+      return res.status(200).json({
+        totalQuestions: 0,
+        byCO: {},
+        byRBT: {},
+        byType: {},
+        totalMarks: 0,
+      });
+    }
+
+    const result = stats[0];
+
+    // Process CO stats
+    const byCO = {};
+    result.coStats.forEach((item) => {
+      byCO[item.co] = (byCO[item.co] || 0) + 1;
+    });
+
+    // Process RBT stats
+    const byRBT = {};
+    result.rbtStats.forEach((item) => {
+      byRBT[item.rbt] = (byRBT[item.rbt] || 0) + 1;
+    });
+
+    // Process Type stats
+    const byType = {};
+    result.typeStats.forEach((item) => {
+      byType[item.type] = (byType[item.type] || 0) + 1;
+    });
+
+    res.status(200).json({
+      totalQuestions: result.totalQuestions,
+      totalMarks: result.totalMarks,
+      avgMarks: Math.round(result.avgMarks * 100) / 100,
+      byCO,
+      byRBT,
+      byType,
+    });
   } catch (error) {
-    res.status(500).json({ message: error.message });
+    console.error("Error fetching question stats:", error);
+    res.status(500).json({
+      message: "Failed to fetch question statistics",
+      error: process.env.NODE_ENV === "development" ? error.message : undefined,
+    });
   }
 };
 
-module.exports = { getQuestions, getQuestionsByFilter };
+module.exports = { getQuestions, getQuestionsByFilter, getQuestionStats };

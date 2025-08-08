@@ -409,6 +409,36 @@ const calculateVariation = (values) => {
   return Math.sqrt(variance).toFixed(2);
 };
 
+const getRecentPapers = async (req, res) => {
+  try {
+    const limit = parseInt(req.query.limit) || 5;
+
+    const recentPapers = await Paper.find({})
+      .populate("blueprint", "name totalMarks totalQuestions")
+      .sort({ createdAt: -1 })
+      .limit(limit)
+      .select("name blueprint createdAt questions totalMarks");
+
+    // Calculate summary for each paper
+    const papersWithSummary = recentPapers.map((paper) => ({
+      _id: paper._id,
+      name: paper.name,
+      blueprint: paper.blueprint,
+      totalMarks: paper.totalMarks,
+      questionCount: paper.questions?.length || 0,
+      createdAt: paper.createdAt,
+    }));
+
+    res.status(200).json(papersWithSummary);
+  } catch (error) {
+    console.error("Error fetching recent papers:", error);
+    res.status(500).json({
+      message: "Failed to fetch recent papers",
+      error: process.env.NODE_ENV === "development" ? error.message : undefined,
+    });
+  }
+};
+
 module.exports = {
   generatePapers,
   getPapersByBlueprint,
@@ -421,4 +451,5 @@ module.exports = {
   exportSessionPapers,
   exportPaperData,
   getPaperAnalysis,
+  getRecentPapers,
 };
