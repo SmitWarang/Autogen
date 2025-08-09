@@ -53,7 +53,8 @@ const Blueprint = () => {
   const fetchSubjects = async () => {
     try {
       const response = await getSubjects();
-      setAvailableSubjects(response.data || []);
+      console.log(response);
+      setAvailableSubjects(response.data.subjects || []);
     } catch (error) {
       console.error("Error fetching subjects:", error);
     }
