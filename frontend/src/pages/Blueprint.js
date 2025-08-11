@@ -19,7 +19,7 @@ const Blueprint = () => {
     name: "",
     totalMarks: 60,
     totalQuestions: 12,
-    marksPerCO: {},
+    marksPerCO: { CO1: 7, CO2: 8, CO3: 5 },
     theoryPercent: 70,
     numericalPercent: 30,
     rbtDistribution: {
@@ -63,7 +63,9 @@ const Blueprint = () => {
   const fetchCourseOutcomes = async (subject) => {
     try {
       const response = await getCourseOutcomes(subject);
-      setAvailableCOs(response.data || []);
+      console.log(response);
+      setAvailableCOs(response.data.courseOutcomes.map((co) => co.co) || []);
+      console.log(availableCOs);
     } catch (error) {
       console.error("Error fetching COs:", error);
     }
