@@ -4,6 +4,9 @@ const {
   getBlueprints,
   getBlueprintById,
   getQuestionStats,
+  updateBlueprint,
+  deleteBlueprint,
+  validateBlueprint,
 } = require("../controllers/blueprintController");
 
 const router = express.Router();
@@ -19,5 +22,14 @@ router.get("/:id", getBlueprintById);
 
 // GET /api/blueprints/stats/questions - Get question pool statistics
 router.get("/stats/questions", getQuestionStats);
+
+// POST /api/blueprints/validate - Validate blueprint (NEW ROUTE)
+router.post("/validate", validateBlueprint);
+
+// PUT /api/blueprints/:id - Update blueprint
+router.put("/:id", updateBlueprint);
+
+// DELETE /api/blueprints/:id - Delete blueprint
+router.delete("/:id", deleteBlueprint);
 
 module.exports = router;
