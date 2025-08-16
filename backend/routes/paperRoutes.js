@@ -16,7 +16,7 @@ const {
 
 const router = express.Router();
 
-router.get("/recent", getRecentPapers);
+router.get("/", getRecentPapers);
 
 // POST /api/papers/generate/:blueprintId - Generate papers from blueprint
 router.post("/generate/:blueprintId", generatePapers);

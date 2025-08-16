@@ -17,11 +17,11 @@ const Blueprint = () => {
 
   const [blueprintData, setBlueprintData] = useState({
     name: "",
-    totalMarks: 60,
-    totalQuestions: 12,
+    totalMarks: 20,
+    totalQuestions: 7,
     marksPerCO: { CO1: 7, CO2: 8, CO3: 5 },
-    theoryPercent: 70,
-    numericalPercent: 30,
+    theoryPercent: 100,
+    numericalPercent: 0,
     rbtDistribution: {
       R: 20,
       U: 30,

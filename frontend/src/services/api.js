@@ -118,7 +118,7 @@ export const exportPaperToPDF = (id) => {
 };
 
 export const getRecentPapers = (limit = 5) => {
-  return api.get(`/papers/recent?limit=${limit}`);
+  return api.get(`/papers/`);
 };
 
 // Utility APIs
