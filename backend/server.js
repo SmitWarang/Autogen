@@ -35,9 +35,9 @@ app.use("/api/blueprints", blueprintRoutes);
 app.use("/api/papers", paperRoutes);
 
 // Health check
-app.get("/api/health", (_req, res) =>
-  res.json({ ok: true, env: process.env.NODE_ENV || "development" })
-);
+// app.get("/api/health", (_req, res) =>
+//   res.json({ ok: true, env: process.env.NODE_ENV || "development" })
+// );
 
 app.get("/", (req, res) => {
   res.send("Autonomous Generator Backend is running ✅");
