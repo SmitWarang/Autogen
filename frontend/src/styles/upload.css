@@ -1,0 +1,52 @@
+/* upload.css - tag-based rules for Upload page */
+
+/* top title and hint */
+h2, h3 { margin-bottom: var(--spacing-sm); }
+
+/* file input area - keep it clear and prominent */
+input[type="file"] {
+  display: block;
+  padding: 0.6rem 0.8rem;
+  border: 1px dashed var(--color-border);
+  border-radius: var(--radius-md);
+  width: 100%;
+  background: linear-gradient(180deg, rgba(0,0,0,0.01), transparent);
+}
+
+/* forms: label + input stacked */
+form label {
+  display: block;
+  margin-bottom: 0.4rem;
+  color: var(--color-text-secondary);
+  font-weight: 600;
+  font-size: 0.95rem;
+}
+form input[type="text"], form input[type="number"], form select, form textarea {
+  width: 100%;
+  margin-bottom: var(--spacing-md);
+}
+
+/* preview box (if using <pre> for JSON or success text) */
+pre {
+  white-space: pre-wrap;
+  word-break: break-word;
+  background: #0b1220;
+  color: #d1e7ff;
+  padding: var(--spacing-md);
+  border-radius: var(--radius-sm);
+  font-size: 0.9rem;
+  margin-top: var(--spacing-sm);
+}
+
+/* primary action buttons */
+button {
+  min-width: 9rem;
+  padding: 0.55rem 0.9rem;
+}
+
+/* success/error micro text below inputs */
+small {
+  display: block;
+  margin-top: 0.25rem;
+  color: var(--color-text-muted);
+}

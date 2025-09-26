@@ -1,0 +1,24 @@
+/* blueprint.css - structural rules for Blueprints page */
+
+/* top headings */
+h2 { margin-bottom: var(--spacing-sm); }
+
+/* blueprint form rows: label + select/input */
+form label { display:block; margin-bottom: .35rem; font-weight:600; color:var(--color-text-secondary); }
+form select, form input[type="number"], form input[type="text"] {
+  width:100%;
+  padding: 0.55rem 0.75rem;
+  border:1px solid var(--color-border);
+  border-radius: var(--radius-md);
+}
+
+/* blueprint tables/list: clearer spacing */
+table { border-collapse: collapse; width:100%; margin-top: var(--spacing-md); }
+thead th { padding: .7rem; text-align:left; font-weight:700; background:var(--color-primary); color:#fff; }
+tbody td { padding: .6rem; border-top: 1px solid var(--color-border-light); }
+
+/* inline action buttons next to items */
+button { font-weight:600; }
+
+/* lighten up long forms */
+section > form { gap: var(--spacing-md); display:block; }

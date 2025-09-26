@@ -1,0 +1,105 @@
+/* papers.css - decluttered UI for Papers page */
+
+/* page header / lead */
+h2 { font-size: 1.5rem; margin-bottom: 0.35rem; color: var(--color-text-primary); }
+p { margin-bottom: var(--spacing-md); color: var(--color-text-secondary); }
+
+/* form layout - use a compact grid so controls line up nicely */
+form {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: var(--spacing-md);
+  align-items: end; /* keep labels aligned towards bottom where appropriate */
+  margin-bottom: var(--spacing-lg);
+}
+
+/* each label + input pair (labels are above inputs) */
+form label {
+  display: block;
+  font-weight: 600;
+  margin-bottom: 0.4rem;
+  color: var(--color-text-secondary);
+  font-size: 0.95rem;
+}
+
+/* selects/inputs in papers page */
+select, input[type="number"], input[type="text"] {
+  width: 100%;
+  padding: 0.55rem 0.7rem;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--color-border);
+  background: var(--color-surface);
+}
+
+/* button row: put generate button prominent */
+form > button[type="submit"], form input[type="submit"] {
+  grid-column: 1 / -1; /* full width on desktop; looks good on mobile */
+  justify-self: start;
+  background: linear-gradient(180deg, var(--color-primary), var(--color-primary-dark));
+  border: none;
+  color: #fff;
+  padding: 0.65rem 1rem;
+  font-weight: 700;
+  border-radius: var(--radius-lg);
+  box-shadow: 0 6px 18px rgba(37,99,235,0.12);
+}
+
+/* 'Generate' disabled look */
+form > button[disabled], form input[type="submit"][disabled] {
+  opacity: 0.6;
+  box-shadow: none;
+}
+
+/* recent papers block - make list clean and lightweight */
+h3 { margin-top: var(--spacing-lg); margin-bottom: var(--spacing-sm); }
+ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: grid;
+  gap: var(--spacing-sm);
+}
+ul li {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--spacing-md);
+  padding: 0.6rem 0.75rem;
+  border-radius: var(--radius-sm);
+  background: linear-gradient(180deg,#fff,#fbfdff);
+  border: 1px solid var(--color-border-light);
+  box-shadow: var(--shadow-sm);
+  color: var(--color-text-primary);
+  font-size: 0.98rem;
+}
+
+/* inside list items: title area and action area */
+ul li > span {
+  color: var(--color-text-primary);
+  font-weight: 600;
+}
+ul li > small {
+  color: var(--color-text-secondary);
+  margin-left: 0.5rem;
+  font-weight: 400;
+  font-size: 0.9rem;
+}
+
+/* download button: small, subtle, aligned right */
+ul li button {
+  background: transparent;
+  border: 1px solid var(--color-border);
+  color: var(--color-primary);
+  padding: 0.4rem 0.7rem;
+  border-radius: 0.5rem;
+  font-weight: 700;
+}
+ul li button:hover { background: rgba(37,99,235,0.06); }
+
+/* narrow screens: stack items for readability */
+@media (max-width: 640px) {
+  form { grid-template-columns: 1fr; }
+  ul li { flex-direction: column; align-items: stretch; gap: .5rem; }
+  ul li > div, ul li > span { width: 100%; }
+  ul li button { justify-self: end; }
+}
