@@ -29,10 +29,10 @@ const questionRoutes = require("./routes/questionRoutes");
 const blueprintRoutes = require("./routes/blueprintRoutes");
 const paperRoutes = require("./routes/paperRoutes");
 
-app.use("/api/upload", uploadRoutes);
-app.use("/api/questions", questionRoutes);
-app.use("/api/blueprints", blueprintRoutes);
-app.use("/api/papers", paperRoutes);
+app.use("/upload", uploadRoutes);
+app.use("/questions", questionRoutes);
+app.use("/blueprints", blueprintRoutes);
+app.use("/papers", paperRoutes);
 
 // Health check
 // app.get("/api/health", (_req, res) =>
